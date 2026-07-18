@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf *)"
+    ],
+    "defaultMode": "default"
+  },
+  "enabledMcpjsonServers": [
+    "atlassian"
+  ],
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR\\.claude\\hooks\\enforce_py_interpreter.ps1\"",
+            "statusMessage": "Blocking your command!"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR\\.claude\\hooks\\enforce_py_interpreter.ps1\"",
+            "statusMessage": "Blocking your command!"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__atlassian__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR\\.claude\\hooks\\jira_audit_log.ps1\"",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  }
+}
