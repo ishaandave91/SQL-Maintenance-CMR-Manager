@@ -149,6 +149,24 @@ Exact server, database, project, and field values are kept in the project's inte
 
 ---
 
+## Using this as a template
+
+This project is built against MS SQL Server, but the architecture 
+is data-source agnostic. The two helper scripts that fetch 
+maintenance data are the only MSSQL-specific components. To adapt 
+this for a different database or data source:
+
+- Replace the helper scripts with your own data-fetch layer 
+  (SQLAlchemy, PostgreSQL drivers, REST API calls, etc.)
+- The orchestrator, skills, MCP integration, and governance hooks 
+  require no changes
+- The Atlassian MCP connection works out of the box for any 
+  Jira-based workflow
+
+The post linked below walks through the concepts in detail.
+
+---
+
 ## Further reading
 
 - **[DESIGN.md](DESIGN.md)** — component map, data flow, and the design decisions behind each stage (also infrastructure-clean).
